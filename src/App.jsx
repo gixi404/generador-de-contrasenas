@@ -6,8 +6,6 @@ import { AiOutlineArrowDown } from "react-icons/ai";
 import iconPolicia from "./img/security-guard.png";
 import iconLadron from "./img/ladron.png";
 import iconEscudo from "./img/proteccion.png";
-import iconActivar from "./img/activar.png";
-import iconDesactivar from "./img/desactivar.png";
 
 function App() {
   const [password, setPassword] = useState("GENERA UNA CONTRASEÑA");
