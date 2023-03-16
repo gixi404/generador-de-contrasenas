@@ -13,16 +13,29 @@ function App() {
   const [caracteresEspeciales, setCaracteresEspeciales] = useState(true);
   const [animar, setAnimar] = useState(false);
   const [errorLongitud, setErrorLongitud] = useState(false);
-  const [menosDiez, setMenosDiez] = useState(true)
+  const [menosDiez, setMenosDiez] = useState(true);
   const [alerta, setAlerta] = useState(false);
   const [seguridad, setSeguridad] = useState(false);
+  const [primeraVez, setPrimeraVez] = useState(true);
 
-  const handleSubmit = (event) => event.preventDefault();
-  const handleClick = () => {
-    setAnimar(!animar);
-    setPassword(generarContraseña(longitud))
-  };
-  
+  useEffect(() => setPassword(generarContraseña(10)), []);
+
+  useEffect(() => {
+    if (password === "GENERA UNA CONTRASEÑA") {
+      setSeguridad(true);
+    }
+  }, [password]);
+
+  useEffect(() => {
+    if (longitud >= 25) {
+      setSeguridad(true);
+    }
+  }, [longitud]);
+
+  useEffect(() => {
+    setTimeout(() => setPrimeraVez(false), 2000);
+  }, []);
+
   function generarContraseña(longitud) {
     if (caracteresEspeciales) {
       const caracteres =
@@ -33,7 +46,7 @@ function App() {
       for (let i = 0; i < longitud; i++) {
         const indice = numerosAleatorios[i] % caracteres.length;
         contraseña += caracteres.charAt(indice);
-      };
+      }
       return contraseña;
     } else {
       const caracteres =
@@ -46,97 +59,82 @@ function App() {
         contraseña += caracteres.charAt(indice);
       };
       const aleatorio = n => Math.random() < n;
-      if (aleatorio(0.10)) {
+      if (aleatorio(0.1)) {
         contraseña += "@";
-      } else if (aleatorio(0.20)) {
+      } else if (aleatorio(0.2)) {
         contraseña += "!";
-      } else if (aleatorio(0.30)) {
+      } else if (aleatorio(0.3)) {
         contraseña += "¡";
-      } else if (aleatorio(0.40)) {
+      } else if (aleatorio(0.4)) {
         contraseña += "#";
-      } else if (aleatorio(0.50)) {
+      } else if (aleatorio(0.5)) {
         contraseña += "$";
-      } else if (aleatorio(0.60)) {
+      } else if (aleatorio(0.6)) {
         contraseña += "%";
-      } else if (aleatorio(0.70)) {
+      } else if (aleatorio(0.7)) {
         contraseña += "&";
-      } else if (aleatorio(0.80)) {
+      } else if (aleatorio(0.8)) {
         contraseña += "*";
-      } else if (aleatorio(0.90)) {
+      } else if (aleatorio(0.9)) {
         contraseña += "_";
-      } ;
+      }
       return contraseña;
-    };
+    }
   };
 
-  function ManejarError() {
-   return (
-     <div className="container_error">
-       <p className="error">mínimo 10 caracteres</p>
-     </div>
-   );
+  const handleSubmit = event => event.preventDefault();
+
+  function handleClickGenerar() {
+    setAnimar(!animar);
+    setPassword(generarContraseña(longitud));
+    setTimeout(() => setAnimar(false), 500)
   };
 
-  function arrowUp() {
-    setLongitud(longitud + 5);
-  };
+  const ManejarError = () => (
+    <div className="container_error">
+      <p className="error">mínimo 10 caracteres</p>
+    </div>
+  );
+
+  const arrowUp = () => setLongitud(longitud + 5);
 
   function arrowDown() {
     setLongitud(longitud - 5);
     if (longitud === 10) {
       setLongitud(10);
-      setErrorLongitud(true)
-      setMenosDiez(false)
+      setErrorLongitud(true);
+      setMenosDiez(false);
       setTimeout(() => {
         setErrorLongitud(false);
         setMenosDiez(true);
       }, 2000);
-    };
+    }
   };
 
-  function copiarContraseña() {
-    navigator.clipboard.writeText(password);  
+  const Alerta = () => (
+    <div className="container-alerta">
+      <div className="alerta">
+        <p>Copiado al portapapeles</p>
+      </div>
+    </div>
+  );
+
+  //* Copiar contraseña.
+  const clipboard = new ClipboardJS(".copy");
+  clipboard.on("success", () => {
     setAlerta(true);
     setTimeout(() => setAlerta(false), 2000);
-  }; 
+  });
 
-  function Alerta() {
-    return (
-      <div className="container-alerta">
-        <div className="alerta">
-          <p>Copiado al portapapeles</p>
-        </div>
-      </div>
-    );
-  };
-
-  useEffect(() => {
-    if (longitud >= 25) {
-      setSeguridad(true);
-    } else if (longitud >= 15) {
-      setSeguridad(true);
-    };
-  }, [longitud]);
-
-  useEffect(() => {
-    if (password === "GENERA UNA CONTRASEÑA") {
-      setSeguridad(true)
-    };
-  }, [password])
-
-  useEffect(() => {
-    setPassword(generarContraseña(10));
-  }, []);
-
-  // window.open("https://www.youtube.com/watch?v=c5YVvdZ0-a0")
-// window.print()
   return (
     <div className="App">
       {alerta && <Alerta />}
+
       <div className="container">
         <h1>
           Generador <br /> De <br /> Contraseñas
         </h1>
+
         {seguridad ? (
           <div className="img_icon">
             <img
@@ -169,27 +167,37 @@ function App() {
             <p className="img_texto">Seguridad de contraseña</p>
           </div>
         )}
+
         <form onSubmit={handleSubmit} className="container-formulario">
           <div
             className={
-              animar ? "container_generar animar" : "container_generar"
+              primeraVez
+                ? "container_generar agrandarGenerar"
+                : animar
+                ? "container_generar animarGenerar"
+                : "container_generar"
             }
-            onClick={handleClick}
+            onClick={handleClickGenerar}
           >
-            <VscDebugRestart title="GENERAR CONTRASEÑA" className="img" />
+            <VscDebugRestart
+              title="GENERAR CONTRASEÑA"
+              className="imgGenerar"
+            />
           </div>
+
           <MdContentCopy
+            data-clipboard-text={password}
             title="COPIAR"
-            onClick={copiarContraseña}
             className="copy"
           />
+
           <div className="container_password">
             <h2 className="password">{password}</h2>
           </div>
 
-          {errorLongitud ? <ManejarError /> : ""}
+          {errorLongitud && <ManejarError />}
 
-          <div className={menosDiez ? "container_longitud" : "fuera"}>
+          <div className={menosDiez ? "container_longitud" : "min10c"}>
             <h3 className="longitud-texto">Longitud</h3>
 
             <div className="container_input">
@@ -199,11 +207,8 @@ function App() {
                 disabled
                 className="longitud"
               />
-              <AiOutlineArrowUp onClick={arrowUp} className="flechas up" />
-              <AiOutlineArrowDown
-                onClick={arrowDown}
-                className="flechas down"
-              />
+              <AiOutlineArrowUp onClick={arrowUp} className="flechas" />
+              <AiOutlineArrowDown onClick={arrowDown} className="flechas" />
             </div>
           </div>
 
@@ -229,4 +234,3 @@ function App() {
 };
 
 export default App;
-
