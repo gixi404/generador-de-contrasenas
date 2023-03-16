@@ -4,6 +4,7 @@ body {
   justify-content: center;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
 :root {
@@ -251,6 +252,7 @@ font-size: 20px;
   justify-content: center;
   background-color: var(--skyblue);
   border-top: 15px solid var(--background); 
+  height: 5rem;
 }
 
 .container_input {
