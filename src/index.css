@@ -53,8 +53,9 @@ body {
   background-color: rgba(130, 114, 234, 0.6);
   display: flex;
   justify-content:center;
-  padding: 1rem;
+  padding: 1rem 0;
   margin: 1rem 0;
+  height: 60px;
 }
 
 .img_texto {
@@ -149,7 +150,7 @@ body {
 }
 
 .agrandarGenerar {
-  animation: agrandarYgirar .7s linear 2;
+  animation: agrandarYgirar .7s linear 3;
   transform-origin: center;
   box-shadow: 0 0 20px var(--skyblue);
 }

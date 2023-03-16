@@ -32,9 +32,7 @@ function App() {
     }
   }, [longitud]);
 
-  useEffect(() => {
-    setTimeout(() => setPrimeraVez(false), 2000);
-  }, []);
+  useEffect(() => setTimeout(() => setPrimeraVez(false), 3000), []);
 
   function generarContraseña(longitud) {
     if (caracteresEspeciales) {
@@ -135,7 +133,7 @@ function App() {
           Generador <br /> De <br /> Contraseñas
         </h1>
 
-        {seguridad ? (
+        {seguridad && (
           <div className="img_icon">
             <img
               src={
@@ -161,10 +159,6 @@ function App() {
                 ? "Contraseña segura"
                 : "Contraseña Muy Débil"}
             </p>
-          </div>
-        ) : (
-          <div className="img_icon">
-            <p className="img_texto">Seguridad de contraseña</p>
           </div>
         )}
 
