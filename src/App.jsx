@@ -20,6 +20,16 @@ function App() {
   const [intervalId, setIntervalId] = useState(null);
   const [isPressed, setIsPressed] = useState(false);
 
+  //* Verificar dispositivo
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setPrimeraVez(false), 3000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // useEffect(() => setTimeout(() => setPrimeraVez(false), 3000), []);
+
   useEffect(() => setPassword(generarContraseña(10)), []);
 
   useEffect(() => {
@@ -31,14 +41,12 @@ function App() {
   useEffect(() => {
     if (longitud >= 25) {
       setSeguridad(true);
-    }
+    };
   }, [longitud]);
 
-  useEffect(() => setTimeout(() => setPrimeraVez(false), 3000), []);
 
   useEffect(() => {
     function handleGlobalMouseUp() {
-      console.log("Botón soltado globalmente");
       setIsPressed(false);
       clearInterval(intervalId);
     };
@@ -151,7 +159,6 @@ function App() {
   };
 
   function handleMouseLeave() {
-    console.log("Mouse leave");
     if (isPressed) {
       setIsPressed(false);
       clearInterval(intervalId);
@@ -250,23 +257,45 @@ function App() {
                 disabled
                 className="longitud"
               />
-              <AiOutlineArrowUp
-                onClick={arrowUp}
-                onMouseDown={handleMouseDownSubir}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseLeave}
-                onMouseEnter={() => setIsPressed(false)}
-                className="flechas"
-              />
-
-              <AiOutlineArrowDown 
-              onClick={arrowDown} 
-              onMouseDown={handleMouseDownBajar}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseLeave}
-              onMouseEnter={() => setIsPressed(false)}
-              className="flechas" 
-              />
+              {isMobile ? (
+                <>
+                  <AiOutlineArrowUp
+                    onClick={arrowUp}
+                    onTouchStart={handleMouseDownSubir}
+                    onTouchEnd={handleMouseUp}
+                    onTouchCancel={handleMouseLeave}
+                    onMouseEnter={() => setIsPressed(false)}
+                    className="flechas"
+                  />
+                  <AiOutlineArrowDown
+                    onClick={arrowDown}
+                    onTouchStart={handleMouseDownBajar}
+                    onTouchEnd={handleMouseUp}
+                    onTouchCancel={handleMouseLeave}
+                    onMouseEnter={() => setIsPressed(false)}
+                    className="flechas"
+                  />
+                </>
+              ) : (
+                <>
+                  <AiOutlineArrowUp
+                    onClick={arrowUp}
+                    onMouseDown={handleMouseDownSubir}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={() => setIsPressed(false)}
+                    className="flechas"
+                  />
+                  <AiOutlineArrowDown
+                    onClick={arrowDown}
+                    onMouseDown={handleMouseDownBajar}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={() => setIsPressed(false)}
+                    className="flechas"
+                  />
+                </>
+              )}
               {/* onMouseEnter={() => setIsPressed(false)}. La razón por la cual se establece isPressed como false cuando el cursor entra en el botón es para asegurarse de que el estado isPressed no quede en un estado inconsistente si el usuario deja el botón mientras lo está presionando. Si el usuario deja el botón mientras lo está presionando y luego mueve el cursor fuera del botón y luego lo vuelve a ingresar sin presionarlo, el estado isPressed permanecerá en true si no se establece como false al entrar en el botón nuevamente. Establecer isPressed como false cuando el cursor entra en el botón garantiza que el estado isPressed siempre esté sincronizado con el estado real del botón. */}
             </div>
           </div>
