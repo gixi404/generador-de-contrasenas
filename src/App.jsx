@@ -8,7 +8,7 @@ import iconLadron from "./img/ladron.png";
 import iconEscudo from "./img/proteccion.png";
 
 function App() {
-  const [password, setPassword] = useState("GENERA UNA CONTRASEÑA");
+  const [password, setPassword] = useState("");
   const [longitud, setLongitud] = useState(10);
   const [caracteresEspeciales, setCaracteresEspeciales] = useState(true);
   const [animar, setAnimar] = useState(false);
@@ -17,13 +17,15 @@ function App() {
   const [alerta, setAlerta] = useState(false);
   const [seguridad, setSeguridad] = useState(false);
   const [primeraVez, setPrimeraVez] = useState(true);
+  const [intervalId, setIntervalId] = useState(null);
+  const [isPressed, setIsPressed] = useState(false);
 
   useEffect(() => setPassword(generarContraseña(10)), []);
 
   useEffect(() => {
-    if (password === "GENERA UNA CONTRASEÑA") {
+    if (password === "") {
       setSeguridad(true);
-    }
+    };
   }, [password]);
 
   useEffect(() => {
@@ -33,6 +35,16 @@ function App() {
   }, [longitud]);
 
   useEffect(() => setTimeout(() => setPrimeraVez(false), 3000), []);
+
+  useEffect(() => {
+    function handleGlobalMouseUp() {
+      console.log("Botón soltado globalmente");
+      setIsPressed(false);
+      clearInterval(intervalId);
+    };
+    document.addEventListener("mouseup", handleGlobalMouseUp);
+    return () => document.removeEventListener("mouseup", handleGlobalMouseUp);
+  }, [intervalId]);
 
   function generarContraseña(longitud) {
     if (caracteresEspeciales) {
@@ -55,8 +67,8 @@ function App() {
       for (let i = 0; i < longitud; i++) {
         const indice = numerosAleatorios[i] % caracteres.length;
         contraseña += caracteres.charAt(indice);
-      };
-      const aleatorio = n => Math.random() < n;
+      }
+      const aleatorio = (n) => Math.random() < n;
       if (aleatorio(0.1)) {
         contraseña += "@";
       } else if (aleatorio(0.2)) {
@@ -85,7 +97,7 @@ function App() {
   function handleClickGenerar() {
     setAnimar(!animar);
     setPassword(generarContraseña(longitud));
-    setTimeout(() => setAnimar(false), 500)
+    setTimeout(() => setAnimar(false), 500);
   };
 
   const ManejarError = () => (
@@ -107,6 +119,43 @@ function App() {
         setMenosDiez(true);
       }, 2000);
     }
+  };
+
+  function handleMouseDownBajar() {
+    setIsPressed(true);
+    const id = setInterval(() => {
+      setLongitud(longitud_ => {
+        const nuevaLongitud = longitud_ === 10 ? 10 : Math.max(longitud_ - 5, 0);
+        setErrorLongitud(longitud_ === 10);
+        setMenosDiez(longitud_ !== 10);
+        setTimeout(() => {
+          setErrorLongitud(false);
+          setMenosDiez(true);
+        }, 2000);
+        return nuevaLongitud;
+      });
+    }, 200);
+    setIntervalId(id);
+  };
+
+  function handleMouseDownSubir() {
+    setIsPressed(true);
+    const id = setInterval(
+      () => setLongitud(longitud => longitud + 5), 200);
+    setIntervalId(id);
+  };
+
+  function handleMouseUp() {
+    setIsPressed(false);
+    clearInterval(intervalId);
+  };
+
+  function handleMouseLeave() {
+    console.log("Mouse leave");
+    if (isPressed) {
+      setIsPressed(false);
+      clearInterval(intervalId);
+    };
   };
 
   const Alerta = () => (
@@ -196,13 +245,29 @@ function App() {
 
             <div className="container_input">
               <input
-                onChange={(e) => setLongitud(e.target.value)}
+                onChange={e => setLongitud(e.target.value)}
                 value={longitud}
                 disabled
                 className="longitud"
               />
-              <AiOutlineArrowUp onClick={arrowUp} className="flechas" />
-              <AiOutlineArrowDown onClick={arrowDown} className="flechas" />
+              <AiOutlineArrowUp
+                onClick={arrowUp}
+                onMouseDown={handleMouseDownSubir}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+                onMouseEnter={() => setIsPressed(false)}
+                className="flechas"
+              />
+
+              <AiOutlineArrowDown 
+              onClick={arrowDown} 
+              onMouseDown={handleMouseDownBajar}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => setIsPressed(false)}
+              className="flechas" 
+              />
+              {/* onMouseEnter={() => setIsPressed(false)}. La razón por la cual se establece isPressed como false cuando el cursor entra en el botón es para asegurarse de que el estado isPressed no quede en un estado inconsistente si el usuario deja el botón mientras lo está presionando. Si el usuario deja el botón mientras lo está presionando y luego mueve el cursor fuera del botón y luego lo vuelve a ingresar sin presionarlo, el estado isPressed permanecerá en true si no se establece como false al entrar en el botón nuevamente. Establecer isPressed como false cuando el cursor entra en el botón garantiza que el estado isPressed siempre esté sincronizado con el estado real del botón. */}
             </div>
           </div>
 
