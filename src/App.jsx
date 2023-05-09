@@ -1,324 +1,147 @@
 import { useState, useEffect } from "react";
-import { VscDebugRestart } from "react-icons/vsc";
-import { MdContentCopy } from "react-icons/md";
-import { AiOutlineArrowUp } from "react-icons/ai";
-import { AiOutlineArrowDown } from "react-icons/ai";
-import iconPolicia from "./img/security-guard.png";
-import iconLadron from "./img/ladron.png";
-import iconEscudo from "./img/proteccion.png";
+import Background from "./components/Background";
+import ClipboardAlert from "./components/ClipboardAlert";
+import Tittle from "./components/Tittle";
+import PasswordSecurityLevel from "./components/PasswordSecurityLevel";
+import RestartButton from "./components/RestartButton";
+import CopyButton from "./components/CopyButton";
+import Password from "./components/Password";
+import ErrorLengthPassword from "./components/ErrorLengthPassword";
+import LengthPassword from "./components/LengthPassword";
+import SpecialCharacters from "./components/SpecialCharacters";
 
 function App() {
   const [password, setPassword] = useState("");
-  const [longitud, setLongitud] = useState(10);
-  const [caracteresEspeciales, setCaracteresEspeciales] = useState(true);
-  const [animar, setAnimar] = useState(false);
-  const [errorLongitud, setErrorLongitud] = useState(false);
-  const [menosDiez, setMenosDiez] = useState(true);
-  const [alerta, setAlerta] = useState(false);
-  const [seguridad, setSeguridad] = useState(false);
-  const [primeraVez, setPrimeraVez] = useState(true);
-  const [intervalId, setIntervalId] = useState(null);
-  const [isPressed, setIsPressed] = useState(false);
-
-  //* Verificar dispositivo
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const [lengthPassword, setLengthPassword] = useState(10);
+  const [specialCharacters, setSpecialCharacters] = useState(true);
+  const [animateRestartBtn, setAnimateRestartBtn] = useState(false);
+  const [errorLengthPassword, setErrorLengthPassword] = useState(false);
+  const [clipboardAlert, setClipboardAlert] = useState(false);
+  const [passwordSecurityLevel, setPasswordSecurityLevel] = useState(false);
+  const [hasPageLoaded, setHasPageLoaded] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setPrimeraVez(false), 3000);
+    const timeout = setTimeout(() => setHasPageLoaded(false), 3000);
     return () => clearTimeout(timeout);
   }, []);
 
-  // useEffect(() => setTimeout(() => setPrimeraVez(false), 3000), []);
-
-  useEffect(() => setPassword(generarContraseña(10)), []);
+  useEffect(() => setPassword(passwordGenerator(10)), []);
 
   useEffect(() => {
     if (password === "") {
-      setSeguridad(true);
-    };
+      setPasswordSecurityLevel(true);
+    }
   }, [password]);
 
   useEffect(() => {
-    if (longitud >= 25) {
-      setSeguridad(true);
-    };
-  }, [longitud]);
-
-
-  useEffect(() => {
-    function handleGlobalMouseUp() {
-      setIsPressed(false);
-      clearInterval(intervalId);
-    };
-    document.addEventListener("mouseup", handleGlobalMouseUp);
-    return () => document.removeEventListener("mouseup", handleGlobalMouseUp);
-  }, [intervalId]);
-
-  function generarContraseña(longitud) {
-    if (caracteresEspeciales) {
-      const caracteres =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let contraseña = "";
-      let numerosAleatorios = new Uint32Array(longitud);
-      crypto.getRandomValues(numerosAleatorios);
-      for (let i = 0; i < longitud; i++) {
-        const indice = numerosAleatorios[i] % caracteres.length;
-        contraseña += caracteres.charAt(indice);
-      }
-      return contraseña;
-    } else {
-      const caracteres =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ@!¡#$%&*_abcdefghijklmnopqrstuvwxyz0123456789";
-      let contraseña = "";
-      let numerosAleatorios = new Uint32Array(longitud);
-      crypto.getRandomValues(numerosAleatorios);
-      for (let i = 0; i < longitud; i++) {
-        const indice = numerosAleatorios[i] % caracteres.length;
-        contraseña += caracteres.charAt(indice);
-      }
-      const aleatorio = (n) => Math.random() < n;
-      if (aleatorio(0.1)) {
-        contraseña += "@";
-      } else if (aleatorio(0.2)) {
-        contraseña += "!";
-      } else if (aleatorio(0.3)) {
-        contraseña += "¡";
-      } else if (aleatorio(0.4)) {
-        contraseña += "#";
-      } else if (aleatorio(0.5)) {
-        contraseña += "$";
-      } else if (aleatorio(0.6)) {
-        contraseña += "%";
-      } else if (aleatorio(0.7)) {
-        contraseña += "&";
-      } else if (aleatorio(0.8)) {
-        contraseña += "*";
-      } else if (aleatorio(0.9)) {
-        contraseña += "_";
-      }
-      return contraseña;
+    if (lengthPassword >= 25) {
+      setPasswordSecurityLevel(true);
     }
-  };
+  }, [lengthPassword]);
+
+  function passwordGenerator(lengthPassword) {
+    if (specialCharacters) {
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let password = "";
+      let randomNumbers = new Uint32Array(lengthPassword);
+      crypto.getRandomValues(randomNumbers);
+
+      for (let i = 0; i < lengthPassword; i++) {
+        const index = randomNumbers[i] % characters.length;
+        password += characters.charAt(index);
+      }
+      return password;
+    } else {
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ@!¡#$%&*_abcdefghijklmnopqrstuvwxyz0123456789";
+      let password = "";
+      let randomNumbers = new Uint32Array(lengthPassword);
+      crypto.getRandomValues(randomNumbers);
+
+      for (let i = 0; i < lengthPassword; i++) {
+        const index = randomNumbers[i] % characters.length;
+        password += characters.charAt(index);
+      }
+
+      const addSpecialCharacters = n => Math.random() < n;
+
+      if (addSpecialCharacters(0.1)) {
+        password += "@";
+      } else if (addSpecialCharacters(0.2)) {
+        password += "!";
+      } else if (addSpecialCharacters(0.3)) {
+        password += "¡";
+      } else if (addSpecialCharacters(0.4)) {
+        password += "#";
+      } else if (addSpecialCharacters(0.5)) {
+        password += "$";
+      } else if (addSpecialCharacters(0.6)) {
+        password += "%";
+      } else if (addSpecialCharacters(0.7)) {
+        password += "&";
+      } else if (addSpecialCharacters(0.8)) {
+        password += "*";
+      } else if (addSpecialCharacters(0.9)) {
+        password += "_";
+      }
+      return password;
+    }
+  }
 
   const handleSubmit = event => event.preventDefault();
 
-  function handleClickGenerar() {
-    setAnimar(!animar);
-    setPassword(generarContraseña(longitud));
-    setTimeout(() => setAnimar(false), 500);
-  };
-
-  const ManejarError = () => (
-    <div className="container_error">
-      <p className="error">mínimo 10 caracteres</p>
-    </div>
-  );
-
-  const arrowUp = () => setLongitud(longitud + 5);
-
-  function arrowDown() {
-    setLongitud(longitud - 5);
-    if (longitud === 10) {
-      setLongitud(10);
-      setErrorLongitud(true);
-      setMenosDiez(false);
-      setTimeout(() => {
-        setErrorLongitud(false);
-        setMenosDiez(true);
-      }, 2000);
-    }
-  };
-
-  function handleMouseDownBajar() {
-    setIsPressed(true);
-    const id = setInterval(() => {
-      setLongitud(longitud_ => {
-        const nuevaLongitud = longitud_ === 10 ? 10 : Math.max(longitud_ - 5, 0);
-        setErrorLongitud(longitud_ === 10);
-        setMenosDiez(longitud_ !== 10);
-        setTimeout(() => {
-          setErrorLongitud(false);
-          setMenosDiez(true);
-        }, 2000);
-        return nuevaLongitud;
-      });
-    }, 200);
-    setIntervalId(id);
-  };
-
-  function handleMouseDownSubir() {
-    setIsPressed(true);
-    const id = setInterval(
-      () => setLongitud(longitud => longitud + 5), 200);
-    setIntervalId(id);
-  };
-
-  function handleMouseUp() {
-    setIsPressed(false);
-    clearInterval(intervalId);
-  };
-
-  function handleMouseLeave() {
-    if (isPressed) {
-      setIsPressed(false);
-      clearInterval(intervalId);
-    };
-  };
-
-  const Alerta = () => (
-    <div className="container-alerta">
-      <div className="alerta">
-        <p>Copiado al portapapeles</p>
-      </div>
-    </div>
-  );
-
-  //* Copiar contraseña.
-  const clipboard = new ClipboardJS(".copy");
-  clipboard.on("success", () => {
-    setAlerta(true);
-    setTimeout(() => setAlerta(false), 2000);
-  });
+  function handleClickPasswordGenerator() {
+    setAnimateRestartBtn(!animateRestartBtn);
+    setPassword(passwordGenerator(lengthPassword));
+    setTimeout(() => setAnimateRestartBtn(false), 500);
+  }
 
   return (
     <div className="App">
-      {alerta && <Alerta />}
+      <Background />
 
-      <div className="container">
-        <h1>
-          Generador <br /> De <br /> Contraseñas
-        </h1>
+      {clipboardAlert && <ClipboardAlert />}
+      <main className="main-container">
+        <Tittle />
 
-        {seguridad && (
-          <div className="img_icon">
-            <img
-              src={
-                longitud >= 25 && !caracteresEspeciales
-                  ? iconPolicia
-                  : longitud === 10
-                  ? iconLadron
-                  : iconEscudo
-              }
-              width={60}
-              height={60}
-            />
-            <p
-              className={
-                longitud === 10 ? "img_texto textoRojo" : "img_texto textoVerde"
-              }
-            >
-              {longitud >= 25 && !caracteresEspeciales
-                ? "Contraseña muy segura"
-                : longitud === 10 && !caracteresEspeciales
-                ? "Contraseña Débil"
-                : longitud >= 15
-                ? "Contraseña segura"
-                : "Contraseña Muy Débil"}
-            </p>
-          </div>
+        {passwordSecurityLevel && (
+          <PasswordSecurityLevel
+            lengthPassword={lengthPassword}
+            specialCharacters={specialCharacters}
+          />
         )}
 
-        <form onSubmit={handleSubmit} className="container-formulario">
-          <div
-            className={
-              primeraVez
-                ? "container_generar agrandarGenerar"
-                : animar
-                ? "container_generar animarGenerar"
-                : "container_generar"
-            }
-            onClick={handleClickGenerar}
-          >
-            <VscDebugRestart
-              title="GENERAR CONTRASEÑA"
-              className="imgGenerar"
-            />
-          </div>
-
-          <MdContentCopy
-            data-clipboard-text={password}
-            title="COPIAR"
-            className="copy"
+        <form onSubmit={handleSubmit} className="container-form">
+          <RestartButton
+            hasPageLoaded={hasPageLoaded}
+            animateRestartBtn={animateRestartBtn}
+            handleClickPasswordGenerator={handleClickPasswordGenerator}
           />
 
-          <div className="container_password">
-            <h2 className="password">{password}</h2>
-          </div>
+          <CopyButton
+            setClipboardAlert={setClipboardAlert}
+            password={password}
+          />
 
-          {errorLongitud && <ManejarError />}
+          <Password password={password} />
 
-          <div className={menosDiez ? "container_longitud" : "min10c"}>
-            <h3 className="longitud-texto">Longitud</h3>
+          {errorLengthPassword && <ErrorLengthPassword />}
 
-            <div className="container_input">
-              <input
-                onChange={e => setLongitud(e.target.value)}
-                value={longitud}
-                disabled
-                className="longitud"
-              />
-              {isMobile ? (
-                <>
-                  <AiOutlineArrowUp
-                    onClick={arrowUp}
-                    onTouchStart={handleMouseDownSubir}
-                    onTouchEnd={handleMouseUp}
-                    onTouchCancel={handleMouseLeave}
-                    onMouseEnter={() => setIsPressed(false)}
-                    className="flechas"
-                  />
-                  <AiOutlineArrowDown
-                    onClick={arrowDown}
-                    onTouchStart={handleMouseDownBajar}
-                    onTouchEnd={handleMouseUp}
-                    onTouchCancel={handleMouseLeave}
-                    onMouseEnter={() => setIsPressed(false)}
-                    className="flechas"
-                  />
-                </>
-              ) : (
-                <>
-                  <AiOutlineArrowUp
-                    onClick={arrowUp}
-                    onMouseDown={handleMouseDownSubir}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseEnter={() => setIsPressed(false)}
-                    className="flechas"
-                  />
-                  <AiOutlineArrowDown
-                    onClick={arrowDown}
-                    onMouseDown={handleMouseDownBajar}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseEnter={() => setIsPressed(false)}
-                    className="flechas"
-                  />
-                </>
-              )}
-              {/* onMouseEnter={() => setIsPressed(false)}. La razón por la cual se establece isPressed como false cuando el cursor entra en el botón es para asegurarse de que el estado isPressed no quede en un estado inconsistente si el usuario deja el botón mientras lo está presionando. Si el usuario deja el botón mientras lo está presionando y luego mueve el cursor fuera del botón y luego lo vuelve a ingresar sin presionarlo, el estado isPressed permanecerá en true si no se establece como false al entrar en el botón nuevamente. Establecer isPressed como false cuando el cursor entra en el botón garantiza que el estado isPressed siempre esté sincronizado con el estado real del botón. */}
-            </div>
-          </div>
+          <LengthPassword
+            lengthPassword={lengthPassword}
+            setLengthPassword={setLengthPassword}
+            setErrorLengthPassword={setErrorLengthPassword}
+          />
 
-          <div className="container_caracteres">
-            <h3 className="caracteres-texto">
-              Caracteres <br /> Especiales
-            </h3>
-            <div
-              className={
-                caracteresEspeciales
-                  ? "botones button-caracteres-especiales-rojo"
-                  : "botones button-caracteres-especiales-verde"
-              }
-              onClick={() => setCaracteresEspeciales(!caracteresEspeciales)}
-            >
-              <p className="activar">{!caracteresEspeciales ? "SI" : "NO"}</p>
-            </div>
-          </div>
+          <SpecialCharacters
+            specialCharacters={specialCharacters}
+            setSpecialCharacters={setSpecialCharacters}
+          />
         </form>
-      </div>
+      </main>
     </div>
   );
-};
+}
 
 export default App;
