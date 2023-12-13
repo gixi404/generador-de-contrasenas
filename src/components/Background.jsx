@@ -1,11 +1,11 @@
 function Background() {
   return (
-    <div class="lines">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+    <div className="lines">
+      <span className="line" />
+      <span className="line" />
+      <span className="line" />
+      <span className="line" />
+      <span className="line" />
     </div>
   );
 }

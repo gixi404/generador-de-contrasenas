@@ -1,9 +1,9 @@
 import "../styles/password.css";
 
-function Password(props) {
+function Password({ password }) {
   return (
     <div className="container-password">
-      <h2 className="password">{props.password}</h2>
+      <h2 className="password">{password}</h2>
     </div>
   );
 }

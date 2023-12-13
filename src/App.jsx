@@ -11,21 +11,20 @@ import LengthPassword from "./components/LengthPassword";
 import SpecialCharacters from "./components/SpecialCharacters";
 
 function App() {
-  const [password, setPassword] = useState("");
-  const [lengthPassword, setLengthPassword] = useState(10);
-  const [specialCharacters, setSpecialCharacters] = useState(true);
-  const [animateRestartBtn, setAnimateRestartBtn] = useState(false);
-  const [errorLengthPassword, setErrorLengthPassword] = useState(false);
-  const [clipboardAlert, setClipboardAlert] = useState(false);
-  const [passwordSecurityLevel, setPasswordSecurityLevel] = useState(false);
-  const [hasPageLoaded, setHasPageLoaded] = useState(true);
+  const [password, setPassword] = useState(""),
+    [lengthPassword, setLengthPassword] = useState(10),
+    [specialCharacters, setSpecialCharacters] = useState(true),
+    [animateRestartBtn, setAnimateRestartBtn] = useState(false),
+    [errorLengthPassword, setErrorLengthPassword] = useState(false),
+    [clipboardAlert, setClipboardAlert] = useState(false),
+    [passwordSecurityLevel, setPasswordSecurityLevel] = useState(false),
+    [hasPageLoaded, setHasPageLoaded] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => setHasPageLoaded(false), 3000);
+    setPassword(generatePass(10));
     return () => clearTimeout(timeout);
   }, []);
-
-  useEffect(() => setPassword(passwordGenerator(10)), []);
 
   useEffect(() => {
     if (password === "") {
@@ -39,7 +38,7 @@ function App() {
     }
   }, [lengthPassword]);
 
-  function passwordGenerator(lengthPassword) {
+  function generatePass(lengthPassword) {
     if (specialCharacters) {
       const characters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -64,21 +63,21 @@ function App() {
         password += characters.charAt(index);
       }
 
-      const addSpecialCharacters = n => Math.random() < n;
+      const addSpecialCharacters = n => parseInt(Math.random() * 10) < n;
 
-      if (addSpecialCharacters(0.1)) {
+      if (addSpecialCharacters(1)) {
         password += "@";
-      } else if (addSpecialCharacters(0.2)) {
+      } else if (addSpecialCharacters(2)) {
         password += "!";
-      } else if (addSpecialCharacters(0.3)) {
+      } else if (addSpecialCharacters(3)) {
         password += "¡";
-      } else if (addSpecialCharacters(0.4)) {
+      } else if (addSpecialCharacters(4)) {
         password += "#";
-      } else if (addSpecialCharacters(0.5)) {
+      } else if (addSpecialCharacters(5)) {
         password += "$";
-      } else if (addSpecialCharacters(0.6)) {
+      } else if (addSpecialCharacters(6)) {
         password += "%";
-      } else if (addSpecialCharacters(0.7)) {
+      } else if (addSpecialCharacters(7)) {
         password += "&";
       } else if (addSpecialCharacters(0.8)) {
         password += "*";
@@ -89,51 +88,44 @@ function App() {
     }
   }
 
-  const handleSubmit = event => event.preventDefault();
-
-  function handleClickPasswordGenerator() {
+  function onClickGeneratePass() {
     setAnimateRestartBtn(!animateRestartBtn);
-    setPassword(passwordGenerator(lengthPassword));
+    setPassword(generatePass(lengthPassword));
     setTimeout(() => setAnimateRestartBtn(false), 500);
   }
 
   return (
     <div className="App">
       <Background />
-
       {clipboardAlert && <ClipboardAlert />}
       <main className="main-container">
         <Tittle />
-
         {passwordSecurityLevel && (
           <PasswordSecurityLevel
             lengthPassword={lengthPassword}
             specialCharacters={specialCharacters}
           />
         )}
-
-        <form onSubmit={handleSubmit} className="container-form">
+        <form
+          onSubmit={event => event.preventDefault()}
+          className="container-form"
+        >
           <RestartButton
             hasPageLoaded={hasPageLoaded}
             animateRestartBtn={animateRestartBtn}
-            handleClickPasswordGenerator={handleClickPasswordGenerator}
+            onClickGeneratePass={onClickGeneratePass}
           />
-
           <CopyButton
             setClipboardAlert={setClipboardAlert}
             password={password}
           />
-
           <Password password={password} />
-
           {errorLengthPassword && <ErrorLengthPassword />}
-
           <LengthPassword
             lengthPassword={lengthPassword}
             setLengthPassword={setLengthPassword}
             setErrorLengthPassword={setErrorLengthPassword}
           />
-
           <SpecialCharacters
             specialCharacters={specialCharacters}
             setSpecialCharacters={setSpecialCharacters}

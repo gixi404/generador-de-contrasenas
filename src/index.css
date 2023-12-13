@@ -8,33 +8,32 @@ body {
 }
 
 .main-container {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  background-color: #37306B;
-  border-radius: 1rem;
+  width: 400px;
+  height: 615px;
+  background-color: #37306b;
+  border-radius: 1em;
+  margin-top: 5vh;
 }
 
 .container-form {
   width: 100%;
-  height: auto;
 }
 
-@media screen and (min-width: 576px) {
+/* @media screen and (min-width: 576px) {
   .main-container {
-      margin: 5vh auto;
-      width: 60vw;
-      max-width: 600px;
+    margin: 5vh auto;
+    width: 60vw;
+    max-width: 600px;
   }
 }
 
 @media screen and (min-width: 992px) {
   .main-container {
-      margin: 10vh auto;
-      width: 70vw;
-      max-width: 450px;
+    margin: 10vh auto;
+    width: 70vw;
+    max-width: 450px;
   }
-}
+} */
 
 .lines {
   position: absolute;
@@ -65,14 +64,26 @@ body {
   width: 100%;
   top: -50%;
   left: 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(75%, #ffffff), to(#ffffff));
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(255, 255, 255, 0)),
+    color-stop(75%, #ffffff),
+    to(#ffffff)
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 75%,
+    #ffffff 100%
+  );
   -webkit-animation: run 7s 0s infinite;
-          animation: run 7s 0s infinite;
+  animation: run 7s 0s infinite;
   -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
   -webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-          animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+  animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 }
 
 .lines .line:nth-child(1) {
@@ -81,7 +92,7 @@ body {
 
 .lines .line:nth-child(1)::after {
   -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  animation-delay: 2s;
 }
 
 .lines .line:nth-child(3) {
@@ -90,7 +101,7 @@ body {
 
 .lines .line:nth-child(3)::after {
   -webkit-animation-delay: 1.3s;
-          animation-delay: 1.3s;
+  animation-delay: 1.3s;
 }
 
 .lines .line:nth-child(4) {
@@ -99,7 +110,7 @@ body {
 
 .lines .line:nth-child(4)::after {
   -webkit-animation-delay: 2.8s;
-          animation-delay: 2.8s;
+  animation-delay: 2.8s;
 }
 
 .lines .line:nth-child(5) {
@@ -108,7 +119,7 @@ body {
 
 .lines .line:nth-child(5)::after {
   -webkit-animation-delay: 3.5s;
-          animation-delay: 3.5s;
+  animation-delay: 3.5s;
 }
 
 @-webkit-keyframes run {

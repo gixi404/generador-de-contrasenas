@@ -3,14 +3,11 @@ import { useState, useEffect } from "react";
 import { AiOutlineArrowUp as ArrowUp } from "react-icons/ai";
 import { AiOutlineArrowDown as ArrowDown } from "react-icons/ai";
 
-function LengthPassword({
-  lengthPassword,
-  setLengthPassword,
-  setErrorLengthPassword,
-}) {
-  const [passwordLessThanTen, setPasswordLessThanTen] = useState(true);
-  const [intervalId, setIntervalId] = useState(null);
-  const [isPressed, setIsPressed] = useState(false);
+function LengthPassword(props) {
+  const { lengthPassword, setLengthPassword, setErrorLengthPassword } = props,
+    [passwordLessThanTen, setPasswordLessThanTen] = useState(true),
+    [intervalId, setIntervalId] = useState(null),
+    [isPressed, setIsPressed] = useState(false);
 
   useEffect(() => {
     function handleGlobalMouseUp() {
@@ -28,8 +25,8 @@ function LengthPassword({
   function arrowDown() {
     setLengthPassword(lengthPassword - 5);
 
-    if (lengthPassword === 10) {
-      setLengthPassword(10);
+    if (lengthPassword === 5) {
+      setLengthPassword(5);
       setErrorLengthPassword(true);
       setPasswordLessThanTen(false);
       setTimeout(() => {
@@ -45,9 +42,9 @@ function LengthPassword({
     const ID = setInterval(() => {
       setLengthPassword(lengthPassword_ => {
         const newLengthPassword =
-          lengthPassword_ === 10 ? 10 : Math.max(lengthPassword_ - 5, 0);
-        setErrorLengthPassword(lengthPassword_ === 10);
-        setPasswordLessThanTen(lengthPassword_ !== 10);
+          lengthPassword_ === 5 ? 5 : Math.max(lengthPassword_ - 5, 0);
+        setErrorLengthPassword(lengthPassword_ === 5);
+        setPasswordLessThanTen(lengthPassword_ !== 5);
         setTimeout(() => {
           setErrorLengthPassword(false);
           setPasswordLessThanTen(true);
@@ -64,7 +61,7 @@ function LengthPassword({
 
     const ID = setInterval(
       () => setLengthPassword(lengthPassword => lengthPassword + 5),
-      200,
+      200
     );
     setIntervalId(ID);
   }

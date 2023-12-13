@@ -5,12 +5,12 @@ import buckler from "../img/buckler.png";
 
 function PasswordSecurityLevel({ lengthPassword, specialCharacters }) {
   return (
-    <article class="password-security-level-container">
+    <article className="password-security-level-container">
       <img
         src={
           lengthPassword >= 25 && !specialCharacters
             ? security
-            : lengthPassword === 10
+            : lengthPassword === 5
             ? thief
             : buckler
         }
@@ -19,19 +19,19 @@ function PasswordSecurityLevel({ lengthPassword, specialCharacters }) {
         alt={
           lengthPassword >= 25 && !specialCharacters
             ? "Security icon"
-            : lengthPassword === 10
+            : lengthPassword === 5
             ? "Thief icon"
             : "Shield icon"
         }
       />
       <p
-        class={
-          lengthPassword === 10 ? "img-text red-text" : "img-text green-text"
+        className={
+          lengthPassword === 5 ? "img-text red-text" : "img-text green-text"
         }
       >
         {lengthPassword >= 25 && !specialCharacters
           ? "Very strong password"
-          : lengthPassword === 10 && !specialCharacters
+          : lengthPassword === 5 && !specialCharacters
           ? "Weak password"
           : lengthPassword >= 15
           ? "Strong password"

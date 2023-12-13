@@ -1,13 +1,12 @@
-import "../styles/restartButton.css";
 import { VscDebugRestart as RestartIcon } from "react-icons/vsc";
+import "../styles/restartButton.css";
 
-function RestartButton({
-  hasPageLoaded,
-  animateRestartBtn,
-  handleClickPasswordGenerator,
-}) {
+function RestartButton(props) {
+  const { hasPageLoaded, animateRestartBtn, onClickGeneratePass } = props;
+
   return (
     <div
+      onClick={onClickGeneratePass}
       className={
         hasPageLoaded
           ? "container-generate-password firstAnimationRestartBtn"
@@ -15,9 +14,8 @@ function RestartButton({
           ? "container-generate-password secondAnimationRestartBtn"
           : "container-generate-password"
       }
-      onClick={handleClickPasswordGenerator}
     >
-      <RestartIcon title="GENERATE PASSWORD" className="restart-icon" />
+      <RestartIcon title="Create Password" className="restart-icon" />
     </div>
   );
 }
