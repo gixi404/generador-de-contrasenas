@@ -1,11 +1,8 @@
-import "../styles/passwordSecurityLevel.css";
-import security from "../img/security.png";
-import thief from "../img/thief.png";
-import buckler from "../img/buckler.png";
+
 
 function PasswordSecurityLevel({ lengthPassword, specialCharacters }) {
   return (
-    <article className="password-security-level-container">
+    <div className="bg-[#8272ea99] flex gap-x-6 w-full h-24 items-center justify-center">
       <img
         src={
           lengthPassword >= 25 && !specialCharacters
@@ -18,16 +15,19 @@ function PasswordSecurityLevel({ lengthPassword, specialCharacters }) {
         height={60}
         alt={
           lengthPassword >= 25 && !specialCharacters
-            ? "Security icon"
+            ? "Security Icon"
             : lengthPassword === 5
-            ? "Thief icon"
-            : "Shield icon"
+            ? "Thief Icon"
+            : "Shield Icon"
         }
       />
       <p
-        className={
-          lengthPassword === 5 ? "img-text red-text" : "img-text green-text"
-        }
+        className={twMerge(
+          "text-2xl sm:text-3xl font-bold text-shadow capitalize",
+          lengthPassword === 5
+            ? "text-[#ff3e30] red-text"
+            : "text-[#3eff3e] green-text"
+        )}
       >
         {lengthPassword >= 25 && !specialCharacters
           ? "Very strong password"
@@ -37,7 +37,7 @@ function PasswordSecurityLevel({ lengthPassword, specialCharacters }) {
           ? "Strong password"
           : "Very weak password"}
       </p>
-    </article>
+    </div>
   );
 }
 

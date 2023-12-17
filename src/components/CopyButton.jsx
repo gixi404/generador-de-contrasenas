@@ -1,5 +1,4 @@
 import { MdContentCopy as Copy } from "react-icons/md";
-import "../styles/copyButton.css";
 
 function CopyButton(props) {
   const { setClipboardAlert, password } = props,
@@ -13,7 +12,7 @@ function CopyButton(props) {
     <Copy
       data-clipboard-text={password}
       title="Copy to Clipboard"
-      className="copy-to-clipboard"
+      className="copy-to-clipboard bg-[#4fbffb] text-white text-6xl rounded-lg cursor-pointer p-2"
     />
   );
 }

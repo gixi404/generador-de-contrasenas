@@ -1,19 +1,12 @@
 import { VscDebugRestart as RestartIcon } from "react-icons/vsc";
-import "../styles/restartButton.css";
 
 function RestartButton(props) {
-  const { hasPageLoaded, animateRestartBtn, onClickGeneratePass } = props;
+  const { onClickGeneratePass } = props;
 
   return (
     <div
       onClick={onClickGeneratePass}
-      className={
-        hasPageLoaded
-          ? "container-generate-password firstAnimationRestartBtn"
-          : animateRestartBtn
-          ? "container-generate-password secondAnimationRestartBtn"
-          : "container-generate-password"
-      }
+      className="bg-[#4fbffb] text-white text-5xl rounded-full cursor-pointer p-2"
     >
       <RestartIcon title="Create Password" className="restart-icon" />
     </div>
