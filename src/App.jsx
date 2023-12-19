@@ -11,9 +11,16 @@ function App() {
 
   useEffect(() => setPassword(generatePass(10)), []);
 
+  useEffect(() => {
+    if (lengthPassword > 16384) {
+      setLengthPassword(10);
+      alert("Limit: 16384");
+    }
+  }, [lengthPassword]);
+
   copyToClipboard.on("success", () => {
     setClipboardAlert(true);
-    setTimeout(() => setClipboardAlert(false), 1000);
+    setTimeout(() => setClipboardAlert(false), 1100);
   });
 
   function generatePass(lengthPassword) {
