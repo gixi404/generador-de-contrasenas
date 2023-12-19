@@ -1,25 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 * {
   padding: 0%;
   margin: 0%;
 }
-
 body {
   background-color: rgb(30, 30, 30);
   overflow: hidden;
   font-family: "Anybody", sans-serif !important;
 }
-
-.btn-form {
-  transition-duration: 0.3s;
-}
-.btn-form:hover {
-  transform: scale(1.2);
-}
-
 .green-text {
   text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
     0.5px 0.5px 0 #000;
@@ -28,7 +18,6 @@ body {
   text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
     0.5px 0.5px 0 #000;
 }
-
 .arrow {
   background-color: transparent;
   width: 3em;
@@ -40,7 +29,6 @@ body {
 .arrow:hover {
   color: #fff;
 }
-
 .lines {
   position: absolute;
   top: 0;
