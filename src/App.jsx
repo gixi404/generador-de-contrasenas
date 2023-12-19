@@ -120,7 +120,7 @@ function App() {
       {openDialog && (
         <dialog
           open
-          className="bg-[#000000cc] text-white w-2/6 h-max mt-4 ml-8 px-3 py-5 rounded-lg flex flex-col justify-center items-center gap-y-4"
+          className="bg-[#000000cc] text-white w-full  md:w-2/6 h-max md:mt-4 md:ml-8 px-3 py-5 md:rounded-lg flex flex-col justify-center items-center gap-y-4"
         >
           <p className="text-center">
             We do not collect or store any type of personal user information.
