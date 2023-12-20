@@ -196,7 +196,7 @@ function App() {
           </div>
 
           <div className="bg-[#1e60844d] w-full h-20 overflow-x-auto border-y-[#4fbffb] border-y-4 flex justify-center items-center">
-            <h2 className="text-white text-3xl tracking-widest">
+            <h2 className="text-white text-3xl tracking-widest w-11/12">
               {clipboardAlert ? "Copied" : password}
             </h2>
           </div>
