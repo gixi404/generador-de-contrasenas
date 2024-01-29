@@ -6,8 +6,7 @@ function App() {
     [lengthPassword, setLengthPassword] = useState(10),
     [specialCharacters, setSpecialCharacters] = useState(false),
     [clipboardAlert, setClipboardAlert] = useState(false),
-    [openDialog, setOpenDialog] = useState(false),
-    copyToClipboard = new ClipboardJS(".copy-to-clipboard");
+    [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => setPassword(generatePass(10)), []);
 
@@ -18,10 +17,11 @@ function App() {
     }
   }, [lengthPassword]);
 
-  copyToClipboard.on("success", () => {
+  function copyPassword(pass) {
     setClipboardAlert(true);
+    navigator.clipboard.writeText(pass);
     setTimeout(() => setClipboardAlert(false), 1100);
-  });
+  }
 
   function generatePass(lengthPassword) {
     if (specialCharacters) {
@@ -108,12 +108,12 @@ function App() {
           GitHub Repository
         </a>
         <a
-          href="https://wa.me/2615731250?text=Hola Staff Lym, los contacto por..."
+          href="https://github.com/gioliotta"
           target="_blank"
           className="text-gray-500 hover:text-white cursor-pointer"
-          title="Staff Lym Contact"
+          title="gioliotta contact"
         >
-          Created by Staff Lym
+          Created by <u>gioliotta</u>
         </a>
       </header>
 
@@ -175,7 +175,7 @@ function App() {
             <svg
               width="70px"
               height="70px"
-              data-clipboard-text={password}
+              onClick={() => copyPassword(password)}
               className="copy-to-clipboard cursor-pointer hover:scale-110 duration-200"
               viewBox="0 0 24 24"
               fill="none"
