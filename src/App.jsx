@@ -9,7 +9,7 @@ function App() {
     [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => setPassword(generatePass(10)), []);
-
+  github;
   useEffect(() => {
     if (lengthPassword > 16384) {
       setLengthPassword(10);
@@ -96,21 +96,21 @@ function App() {
       <header className="w-full h-20 bg-[#00000053] flex flex-col md:flex-row md:h-16 items-center justify-around mb-16">
         <p
           onClick={() => setOpenDialog(true)}
-          className="text-gray-500 hover:text-white cursor-pointer"
+          className="text-gray-300 hover:text-white cursor-pointer"
         >
           Privacy Policy
         </p>
         <a
           href="https://github.com/gioliotta/generator-passwords"
           target="_blank"
-          className="text-gray-500 hover:text-white cursor-pointer"
+          className="text-gray-300 hover:text-white cursor-pointer"
         >
           GitHub Repository
         </a>
         <a
-          href="https://github.com/gioliotta"
+          href="https://gioliotta.online"
           target="_blank"
-          className="text-gray-500 hover:text-white cursor-pointer"
+          className="text-gray-300 hover:text-white cursor-pointer"
           title="gioliotta contact"
         >
           Created by <u>gioliotta</u>
