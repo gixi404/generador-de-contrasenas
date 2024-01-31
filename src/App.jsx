@@ -9,7 +9,7 @@ function App() {
     [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => setPassword(generatePass(10)), []);
-  github;
+
   useEffect(() => {
     if (lengthPassword > 16384) {
       setLengthPassword(10);
