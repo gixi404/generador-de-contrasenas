@@ -101,19 +101,19 @@ function App() {
           Privacy Policy
         </p>
         <a
-          href="https://github.com/gioliotta/generator-passwords"
+          href="https://github.com/gixilym/passwords-create"
           target="_blank"
           className="text-gray-300 hover:text-white cursor-pointer"
         >
           GitHub Repository
         </a>
         <a
-          href="https://gioliotta.online"
+          href="https://gixi.me"
           target="_blank"
           className="text-gray-300 hover:text-white cursor-pointer"
-          title="gioliotta contact"
+          title="gixi contact"
         >
-          Created by <u>gioliotta</u>
+          Created by <u>gixi</u>
         </a>
       </header>
 
@@ -130,7 +130,7 @@ function App() {
             We do not use cookies or other tracking technologies to gather
             information about your visit to our website.
             <br /> <br />
-            Sincerely, <b>Staff Lym</b>
+            Sincerely, <b>Gixi</b>
           </p>
           <button
             className="bg-red-600 py-2 px-3 uppercase rounded-lg w-20 h-10"
