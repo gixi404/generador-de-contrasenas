@@ -1,1 +1,1 @@
-This website generates random passwords with customizable length and the ability to add special characters for increased security. The user can copy the generated password and use it anywhere.
+![image](https://github.com/gixilym/generador-de-contrasenas/assets/104705119/5566abc6-6c15-467b-9b23-c0a1498b600c)

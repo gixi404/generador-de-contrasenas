@@ -101,7 +101,7 @@ function App() {
           Política de Privacidad
         </p>
         <a
-          href="https://github.com/gixilym/generador-de-contraseñas"
+          href="https://github.com/gixilym/generador-de-contrasenas"
           target="_blank"
           title="Repositorio de Github"
           className="text-gray-300 hover:text-white cursor-pointer"
