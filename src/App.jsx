@@ -98,22 +98,23 @@ function App() {
           onClick={() => setOpenDialog(true)}
           className="text-gray-300 hover:text-white cursor-pointer"
         >
-          Privacy Policy
+          Política de Privacidad
         </p>
         <a
-          href="https://github.com/gixilym/passwords-create"
+          href="https://github.com/gixilym/generador-de-contraseñas"
           target="_blank"
+          title="Repositorio de Github"
           className="text-gray-300 hover:text-white cursor-pointer"
         >
-          GitHub Repository
+          Repositorio
         </a>
         <a
-          href="https://gixi.me"
+          href="https://gixi.dev"
           target="_blank"
           className="text-gray-300 hover:text-white cursor-pointer"
-          title="gixi contact"
+          title="Portafolio de gixi"
         >
-          Created by <u>gixi</u>
+          Creado con ❤️ por <u>gixi</u>
         </a>
       </header>
 
@@ -123,28 +124,29 @@ function App() {
           className="bg-[#000000cc] text-white w-full  md:w-2/6 h-max md:mt-4 md:ml-8 px-3 py-5 md:rounded-lg flex flex-col justify-center items-center gap-y-4"
         >
           <p className="text-center">
-            We do not collect or store any type of personal user information.
-            Specifically, we do not store generated passwords, email addresses,
-            or any other personally identifiable information.
+            No recopilo ni almaceno ningún tipo de información personal del
+            usuario. Específicamente, no almaceno contraseñas generadas,
+            direcciones de correo electrónico, o cualquier otra información de
+            identificación personal.
             <br /> <br />
-            We do not use cookies or other tracking technologies to gather
-            information about your visit to our website.
+            No utilizo cookies ni otras tecnologías de seguimiento para
+            recopilar información sobre su visita.
             <br /> <br />
-            Sincerely, <b>Gixi</b>
+            Atentamente, <b>Gixi</b>
           </p>
           <button
             className="bg-red-600 py-2 px-3 uppercase rounded-lg w-20 h-10"
             onClick={() => setOpenDialog(false)}
             type="button"
           >
-            Close
+            Cerrar
           </button>
         </dialog>
       )}
 
       <main className="w-full sm:w-3/5 lg:w-2/5 h-4/8 max-h-[700px] bg-[#37306b] rounded-lg flex flex-col items-center justify-between">
-        <h1 className="text-white capitalize text-4xl sm:text-5xl text-center flex justify-center items-center w-full h-24">
-          Password Create
+        <h1 className="text-white capitalize text-3xl sm:text-4xl text-center flex justify-center items-center w-full h-24">
+          Generador de Contraseñas
         </h1>
 
         <form
@@ -197,12 +199,14 @@ function App() {
 
           <div className="bg-[#1e60844d] w-full h-20 overflow-x-auto border-y-[#4fbffb] border-y-4 flex justify-center items-center">
             <h2 className="text-white text-3xl tracking-widest w-11/12 text-center">
-              {clipboardAlert ? "Copied" : password}
+              {clipboardAlert ? "Copiado" : password}
             </h2>
           </div>
 
           <div className="flex justify-between px-8 pt-4 pb-2 items-center w-full bg-[#1e6084]">
-            <label className="text-white text-2xl tracking-wider">Length</label>
+            <label className="text-white text-2xl tracking-wider">
+              Longitud
+            </label>
             <input
               type="number"
               min="5"
@@ -215,7 +219,7 @@ function App() {
 
           <div className="flex justify-between px-8 pt-2 pb-4 items-center w-full bg-[#1e6084] rounded-b-lg">
             <label className="text-white text-2xl tracking-wider capitalize">
-              special characters
+              Caracteres especiales
             </label>
             <div
               onClick={() => setSpecialCharacters(!specialCharacters)}
@@ -224,7 +228,7 @@ function App() {
                 specialCharacters ? "bg-green-600" : "bg-red-600"
               )}
             >
-              {specialCharacters ? "YES" : "NO"}
+              {specialCharacters ? "SI" : "NO"}
             </div>
           </div>
         </form>

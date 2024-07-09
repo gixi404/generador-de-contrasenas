@@ -1,8 +1,9 @@
 {
-  "name": "passwords-create",
+  "name": "generador-de-contraseñas",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
