@@ -101,7 +101,7 @@ function App() {
           Política de Privacidad
         </p>
         <a
-          href="https://github.com/gixilym/generador-de-contrasenas"
+          href="https://github.com/gixi404/generador-de-contrasenas"
           target="_blank"
           title="Repositorio de Github"
           className="text-gray-300 hover:text-white cursor-pointer"
@@ -121,13 +121,11 @@ function App() {
       {openDialog && (
         <dialog
           open
-          className="bg-[#000000cc] text-white w-full  md:w-2/6 h-max md:mt-4 md:ml-8 px-3 py-5 md:rounded-lg flex flex-col justify-center items-center gap-y-4"
+          className="bg-[#000000cc] backdrop-blur-lg text-white w-full  md:w-2/6 h-max md:mt-4 md:ml-8 px-3 py-5 md:rounded-lg flex flex-col justify-center items-center gap-y-4"
         >
           <p className="text-center">
             No recopilo ni almaceno ningún tipo de información personal del
-            usuario. Específicamente, no almaceno contraseñas generadas,
-            direcciones de correo electrónico, o cualquier otra información de
-            identificación personal.
+            usuario.
             <br /> <br />
             No utilizo cookies ni otras tecnologías de seguimiento para
             recopilar información sobre su visita.
